@@ -1,4 +1,4 @@
-FROM centos:7
+FROM centos:8
 MAINTAINER Pavlina Bortlova <pbortlov@redhat.com>
 
 LABEL description="Review-rot - gather information about opened merge or pull requests"
@@ -8,8 +8,8 @@ LABEL vendor="PnT DevOps Automation - Red Hat, Inc."
 USER root
 
 RUN yum install -y epel-release && yum update -y && \
-    yum install -y git gcc python-devel \
-    python-setuptools python-pip libyaml-devel && \
+    yum install -y git gcc python3-devel \
+    python3-setuptools python3-pip && \
     yum clean all
 
 # copy workdir for installation of review-rot
@@ -17,7 +17,7 @@ WORKDIR /reviewrot
 ADD . /reviewrot
 
 # install review-rot
-RUN pip install --upgrade pip setuptools && python setup.py install
+RUN pip3 install --upgrade pip setuptools && python3 setup.py install
 
 # create direcory for the run of review-rot,
 # set privileges and env variable
