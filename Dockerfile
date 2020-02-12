@@ -23,3 +23,6 @@ RUN pip3 install --upgrade pip setuptools && python3 setup.py install
 # set privileges and env variable
 RUN mkdir -p /.cache/Python-Eggs && chmod g+rw /.cache/Python-Eggs
 ENV PYTHON_EGG_CACHE=/.cache/Python-Eggs
+ENTRYPOINT date \
+           && review-rot -c /secret/configuration.yaml -f json --debug --reverse > /opt/data/data-pending.json \
+           && mv /opt/data/data-pending.json /opt/data/data.json;
